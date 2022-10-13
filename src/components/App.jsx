@@ -1,28 +1,27 @@
 import React from "react";
 import { nanoid } from 'nanoid'
-import { Form } from "./Form/Form";
-import { FormContainer, MainContainer } from "./App.styled";
+import { ContactForm } from "./ContactForm/ContactForm";
+import {  MainContainer } from "./App.styled";
 
 export class App extends React.Component {
 
 state = {
-  contacts: [ {id: nanoid(5), name: 'Лунная Роза'},
-              {id: nanoid(5), name: 'Hermione Kline'},
-              {id: nanoid(5), name: 'Eden Clements'},
-              {id: nanoid(5), name: 'Annie Copeland'},],
+  contacts: [ {id: nanoid(5), name: 'Лунная Роза', number: '071-0-232'},
+              {id: nanoid(5), name: 'Hermione Kline', number: '645-17-19'},
+              {id: nanoid(5), name: 'Eden Clements', number: '443-89-12'},
+              {id: nanoid(5), name: 'Annie Copeland', number: '459-12-56'},],
 
 }
 
-  onSubmitHandler = ({ name }) => {
+  onSubmitHandler = ({ name, number }) => {
     
     const newContact = {
-      id: nanoid(5), name
+      id: nanoid(5), name, number
     }
 
 
     const oldContacts = this.state.contacts;
-    console.log(oldContacts);
-    console.log(newContact);
+   
     this.setState(prevState => ({
       contacts: [newContact, ...oldContacts],
     }));
@@ -35,13 +34,12 @@ state = {
     <div>
         <MainContainer>
           <h1>Phonebook</h1>
-          <FormContainer>
-            <Form onFormSubmit={this.onSubmitHandler  } />
-          </FormContainer>
+          <ContactForm onFormSubmit={this.onSubmitHandler  } />
+
           <h1>Contacts</h1>
           <ul>
           {contacts.map(el => (
-            <li key={el.id}>{el.name}</li>
+            <li key={el.id}>{el.name}:  {el.number}</li>
           ))}
             </ul>
        </MainContainer>
