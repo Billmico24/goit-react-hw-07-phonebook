@@ -4,6 +4,9 @@ import { ContactForm } from "./ContactForm/ContactForm";
 import {  MainContainer } from "./App.styled";
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export class App extends React.Component {
 
@@ -26,6 +29,15 @@ state = {
 
     const oldContacts = this.state.contacts;
    
+    const sameName = oldContacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+   
+    if (sameName) {
+      return toast.error(`${name} is already in contacts`);
+    }
+
+
     this.setState(prevState => ({
       contacts: [newContact, ...oldContacts],
     }));
@@ -51,11 +63,23 @@ state = {
         <MainContainer>
           <h1>Phonebook</h1>
           <ContactForm onFormSubmit={this.onSubmitHandler  } />
-
+          
           <h2>Contacts</h2>
           <Filter value={filter} onChange={this.changeFilter } /> 
           <ContactList contacts={ this.findContacts()} />
-       </MainContainer>
+        </MainContainer>
+        <ToastContainer 
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            />
     </div>
   );
   }
