@@ -28,7 +28,7 @@ export class ContactForm extends React.Component {
     
     
     reset = () => {
-        this.setState({name: ''})
+        this.setState({name: '', number: ''})
     }
   render() {
 
