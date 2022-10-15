@@ -1,4 +1,5 @@
 import { ContactsTable, TableHeaders, TableRows, TableData, DeleteButton } from "./ContactList.styled";
+import PropTypes from 'prop-types';
 
 export const ContactList = ({ contacts, onDeleteContact }) => {
   return (
@@ -10,9 +11,9 @@ export const ContactList = ({ contacts, onDeleteContact }) => {
                 <TableHeaders>Phone number</TableHeaders>
                 <TableHeaders></TableHeaders>
                 </TableRows>
-      </thead>
+            </thead>
       
-      <tbody>
+             <tbody>
                 {contacts.map(el => (
                     <TableRows key={el.id}>
                     <TableData>{el.name}</TableData>
@@ -20,10 +21,19 @@ export const ContactList = ({ contacts, onDeleteContact }) => {
                     <TableData><DeleteButton type="button" onClick={() => onDeleteContact(el.id)}>delete</DeleteButton></TableData>
                     </TableRows>
                 ))}  
-      </tbody>
+             </tbody>
       </ContactsTable>
       )
 }
 
-
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+  onDeleteContact: PropTypes.func.isRequired,
+};
 

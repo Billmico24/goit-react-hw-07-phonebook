@@ -1,9 +1,12 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid'
 import { FormContainer, FromInput, SubmitButton } from "./ContactForm.styled";
 
 
 export class ContactForm extends React.Component {
+
+
 
   state = {
     name: '',
@@ -16,12 +19,14 @@ export class ContactForm extends React.Component {
 
     handleInputChange = (e) => {
       const { name, value } = e.currentTarget;
+      
       console.log(e.currentTarget.name)
-    this.setState({ [name]: value })
+      this.setState({ [name]: value })
   };
 
    handleOnSubmit = e => {
-    e.preventDefault();
+     e.preventDefault();
+     
        this.props.onFormSubmit(this.state);
        this.reset();
    }
@@ -30,6 +35,7 @@ export class ContactForm extends React.Component {
     reset = () => {
         this.setState({name: '', number: ''})
     }
+  
   render() {
 
        
@@ -39,10 +45,10 @@ export class ContactForm extends React.Component {
         <FormContainer onSubmit={this.handleOnSubmit}>
             <label htmlFor={this.formNameId} >Name</label>
              <FromInput
-                onChange={this.handleInputChange}
+                  onChange={this.handleInputChange}
                   id={this.formNameId}
-          type="text"
-          placeholder="Type name"
+                  type="text"
+                  placeholder="Type name"
                   value={this.state.name}
                   name="name"
                   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -51,10 +57,10 @@ export class ContactForm extends React.Component {
                 />
                 <label htmlFor={this.formNumberId} >Number</label>
              <FromInput
-                onChange={this.handleInputChange}
+                  onChange={this.handleInputChange}
                   id={this.formNumberId}
-          value={this.state.number}
-          placeholder="Type number"
+                  value={this.state.number}
+                  placeholder="Type number"
                   type="tel"
                   name="number"
                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -65,5 +71,8 @@ export class ContactForm extends React.Component {
               </FormContainer>
   );
   }
-  
 };
+
+ContactForm.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
+}
