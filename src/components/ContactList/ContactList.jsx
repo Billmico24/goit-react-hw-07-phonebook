@@ -1,4 +1,4 @@
-import { ContactsTable, TableHeaders, TableRows, TableData, DeleteButton, SpanX } from "./ContactList.styled";
+import { ContactsTable, TableHeaders, TableRows, TableData, DeleteButton } from "./ContactList.styled";
 
 export const ContactList = ({ contacts, onDeleteContact }) => {
   return (

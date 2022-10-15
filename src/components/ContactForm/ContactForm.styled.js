@@ -6,7 +6,7 @@ display:flex;
 flex-direction: column;
 gap: 10px;
 border-radius: 5px;
-max-width: 300px;
+max-width: 330px;
 box-shadow: ${props => props.theme.filters.shadow};
 padding: 10px;
 background-image: ${props => props.theme.gradients.grey};
