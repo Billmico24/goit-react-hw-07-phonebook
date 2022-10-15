@@ -41,7 +41,8 @@ export class ContactForm extends React.Component {
              <FromInput
                 onChange={this.handleInputChange}
                   id={this.formNameId}
-                  type="text"
+          type="text"
+          placeholder="Type name"
                   value={this.state.name}
                   name="name"
                   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -52,7 +53,8 @@ export class ContactForm extends React.Component {
              <FromInput
                 onChange={this.handleInputChange}
                   id={this.formNumberId}
-                  value={this.state.number}
+          value={this.state.number}
+          placeholder="Type number"
                   type="tel"
                   name="number"
                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
