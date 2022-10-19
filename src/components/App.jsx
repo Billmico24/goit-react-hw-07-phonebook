@@ -21,9 +21,10 @@ state = {
 
 }
   componentDidMount() {
-    if (localStorage.length) {
-      const contacts = localStorage.getItem('contacts');
+    const contacts = localStorage.getItem('contacts');
       const parsedContacts = JSON.parse(contacts);
+    if (contacts) {
+      
       this.setState({contacts: parsedContacts})
     }
     
