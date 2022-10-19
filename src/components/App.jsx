@@ -15,7 +15,7 @@ state = {
   contacts: [ {id: nanoid(5), name: 'Лунная Роза', number: '071-0-232'},
               {id: nanoid(5), name: 'Hermione Kline', number: '645-17-19'},
               {id: nanoid(5), name: 'Eden Clements', number: '443-89-12'},
-              { id: nanoid(5), name: 'Annie Copeland', number: '459-12-56' },
+              {id: nanoid(5), name: 'Annie Copeland', number: '459-12-56' },
   ],
   filter: '',
 
