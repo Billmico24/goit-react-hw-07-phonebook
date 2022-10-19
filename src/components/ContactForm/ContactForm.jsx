@@ -20,7 +20,6 @@ export class ContactForm extends React.Component {
     handleInputChange = (e) => {
       const { name, value } = e.currentTarget;
       
-      console.log(e.currentTarget.name)
       this.setState({ [name]: value })
   };
 
