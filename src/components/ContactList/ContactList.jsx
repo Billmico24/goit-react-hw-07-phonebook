@@ -1,7 +1,12 @@
+import { useDispatch } from 'react-redux';
+import {removeContact} from 'redux/contactsSlice'
+
 import { ContactsTable, TableHeaders, TableRows, TableData, DeleteButton } from "./ContactList.styled";
 import PropTypes from 'prop-types';
 
-export const ContactList = ({ contacts, onDeleteContact }) => {
+export const ContactList = ({ contacts }) => {
+  const dispatch = useDispatch();
+
   return (
       
         <ContactsTable >
@@ -18,7 +23,7 @@ export const ContactList = ({ contacts, onDeleteContact }) => {
                     <TableRows key={el.id}>
                     <TableData>{el.name}</TableData>
                     <TableData>{el.number}</TableData>
-                    <TableData><DeleteButton type="button" onClick={() => onDeleteContact(el.id)}>delete</DeleteButton></TableData>
+                    <TableData><DeleteButton type="button" onClick={() => dispatch(removeContact(el.id))}>delete</DeleteButton></TableData>
                     </TableRows>
                 ))}  
              </tbody>
@@ -33,7 +38,6 @@ ContactList.propTypes = {
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
     })
-  ),
-  onDeleteContact: PropTypes.func.isRequired,
+  )
 };
 
