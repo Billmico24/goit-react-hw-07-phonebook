@@ -1,59 +1,47 @@
-import { useState } from "react";
 
-import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid'
+import { useSelector, useDispatch } from 'react-redux';
+import { getContacts } from 'redux/contactsSlice';
+import { addContact } from "redux/contactsSlice";
+import { nanoid } from '@reduxjs/toolkit';
+
+import { toast } from 'react-toastify';
+
 import { FormContainer, FromInput, SubmitButton } from "./ContactForm.styled";
 
-export function ContactForm({onFormSubmit}) {
+export function ContactForm() {
 
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  
- const reset = () => {
-   setName('');
-   setNumber('');
-    }
-const handleOnSubmit = e => {
-     e.preventDefault();
-     
-  onFormSubmit({
-    name: name,
-    number: number
-  });
-  
-  reset();
-   }
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
-  const handleInputChange = e => {
-    const { name, value } = e.target;
 
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      
-      case 'number':
-        setNumber(value);
-        break;
-      
-      default:
-        return;
-    }
-  }
-
+ const onSubmitHandler = e => {
+    e.preventDefault();
+    console.dir(e.target.elements);
+    const sameName = contacts.find(
+      contact => contact.name.toLowerCase() === e.target.elements.name.value.toLowerCase()
+    );
+   
+    if (sameName) {
+      return toast.error(`${sameName.name} is already in contacts`);
+    } 
+    dispatch(addContact({
+      id: nanoid(5),
+      name: e.target.elements.name.value,
+      number: e.target.elements.number.value
+    }));
+    e.target.reset();
+  };
 
   let formNameId = nanoid(3);
   let formNumberId = nanoid(3);
 
   return (
-    <FormContainer onSubmit={handleOnSubmit}>
+    <FormContainer onSubmit={onSubmitHandler}>
             <label htmlFor={formNameId}>Name</label>
              <FromInput
                   id={formNameId}
-                  onChange={handleInputChange}
                   type="text"
                   placeholder="Type name"
-                  value={name}
                   name="name"
                   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                   title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -63,20 +51,17 @@ const handleOnSubmit = e => {
              <FromInput
                   
                   id={formNumberId}
-                  onChange={handleInputChange}
                   placeholder="Type number"
                   type="tel"
                   name="number"
-                  value={number}
                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                   title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                   required
                 />
               <SubmitButton type="submit">Add contact</SubmitButton>
-              </FormContainer>
+            
+    </FormContainer>
+               
   )
+  
 };
-
-ContactForm.propTypes = {
-  onFormSubmit: PropTypes.func.isRequired,
-}
