@@ -1,8 +1,10 @@
 // import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from "redux/contactsSlice";
-
 import { nanoid } from '@reduxjs/toolkit';
+
+import { addContact } from "redux/contactsSlice";
+import { getContacts } from 'redux/contactsSlice';
+import { getFilter } from 'redux/filterSlice';
 
 import { ContactForm } from "./ContactForm/ContactForm";
 import { ContactList } from "./ContactList/ContactList";
@@ -17,8 +19,10 @@ import {  MainContainer } from "./App.styled";
 export const App = () => {
 
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
-  const filter = useSelector(state => state.filter);
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+
+  // console.log(contacts);
 
   const onSubmitHandler = ({name, number}) => {
    
