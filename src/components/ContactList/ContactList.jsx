@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { removeContact } from 'redux/contactsSlice';
-import { getContacts } from 'redux/contactsSlice';
-import { getFilter } from 'redux/filterSlice';
+import { deleteContact } from 'redux/contactsOperations';
+import { getContacts } from 'redux/selectors';
+import { getFilter } from 'redux/selectors';
 
 import { ContactsTable, TableHeaders, TableRows, TableData, DeleteButton } from "./ContactList.styled";
 
@@ -32,8 +32,8 @@ export const ContactList = () => {
         {filteredContacts.map(el => (
           <TableRows key={el.id}>
             <TableData>{el.name}</TableData>
-            <TableData>{el.number}</TableData>
-            <TableData><DeleteButton type="button" onClick={() => dispatch(removeContact(el.id))}>delete</DeleteButton></TableData>
+            <TableData>{el.phone}</TableData>
+            <TableData><DeleteButton type="button" onClick={() => dispatch(deleteContact(el.id))}>delete</DeleteButton></TableData>
           </TableRows>
         ))}
       </tbody>

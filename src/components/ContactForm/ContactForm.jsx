@@ -1,7 +1,7 @@
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getContacts } from 'redux/contactsSlice';
-import { addContact } from "redux/contactsSlice";
+import { getContacts } from 'redux/selectors';
+import { addContact } from "redux/contactsOperations";
 import { nanoid } from '@reduxjs/toolkit';
 
 import { toast } from 'react-toastify';
@@ -27,7 +27,7 @@ export function ContactForm() {
     dispatch(addContact({
       id: nanoid(5),
       name: e.target.elements.name.value,
-      number: e.target.elements.number.value
+      phone: e.target.elements.phone.value
     }));
     e.target.reset();
   };
@@ -53,7 +53,7 @@ export function ContactForm() {
                   id={formNumberId}
                   placeholder="Type number"
                   type="tel"
-                  name="number"
+                  name="phone"
                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                   title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                   required

@@ -1,6 +1,8 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getContacts } from 'redux/contactsSlice';
+import { useEffect } from 'react';
+
+import { getContacts } from 'redux/selectors';
 
 import { ContactForm } from "./ContactForm/ContactForm";
 import { ContactList } from "./ContactList/ContactList";
@@ -9,12 +11,20 @@ import { Filter } from "./Filter/Filter";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {  MainContainer } from "./App.styled";
+import { fetchContacts } from 'redux/contactsOperations';
 
 
 
 export const App = () => {
 
+  const dispatch = useDispatch();
+
+   useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   const contacts = useSelector(getContacts);
+  console.log(contacts);
 
     return (
     <div>
